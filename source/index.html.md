@@ -163,10 +163,14 @@ Date ranch used for Startdate & Enddate must cross a Sunday Date - Best practice
 |Parameter|Type|Required|Description|
 |---|---|---|---|
 |q|string|true|**"availabilityDetail"**|
-|geocode|string|false|5-Digit **ZIP** or 8-Digit Valassis **ATZ**. Multiple values separated by ","|
-|stageId|Numeric|false|When availability request URI will exceed 8190 characters limit due to high volume of geocodes. "348"|
+|**geocode**|string|false|5-Digit **ZIP** or 8-Digit Valassis **ATZ**. Multiple values separated by ","|
+|**stageId**|Numeric|false|When availability request URI will exceed 8190 characters limit due to high volume of geocodes. "348"|
 |fields|string|true|Query Results Filter **"fields.cardigent"**|
+|isAvailable|Numeric|false| If not used - returns Availability for all geographies. "1" - Returns only Available Geos. "0" - Returns only Unavailable Geos.|
 
+<aside class="notice">
+Use either <code>geocode</code> or <code>stageId</code> parameters, not both.  StageId is used only if the AvailabilityHelper service was previously used.
+</aside>
 ### Responses
 > The above command returns JSON structured like this:
 
@@ -251,8 +255,8 @@ Date ranch used for Startdate & Enddate must cross a Sunday Date - Best practice
 |---|---|---|
 |total|integer(int32)|Number of Payloads returned|
 |records|integer(int32)|Number of Records returned|
-|pageSize|integer(int32)|Number of Records refeturned|
-|page|integer(int32)|Number of Payloads returned|
+|pageSize|integer(int32)|Number of Records returned|
+|page|integer(int32)|Number of Payload Properties returned|
 |rows|[[Rows](#schemarows1)]|Array of GEOs by In Home Date|
 
 <a id="schemarows1"></a>
@@ -271,10 +275,131 @@ Date ranch used for Startdate & Enddate must cross a Sunday Date - Best practice
 |subDeliveryMethod|string|Delivery Method - Internal use|
 |hhc|integer(int32)|Number of House Holds in the Geography|
 
+--------------------------------------------------------------------------------
+## POST - AvailabilityHelper
+
+```shell
+# You can also use wget
+curl -X POST \
+  https://api.valassis.com/AvailabilityHelper/1.0/stage \
+  -H 'Content-Type: application/json'
+  -H 'Authorization: Bearer <access_token>'
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json',
+  'Authorization' => 'Bearer <access_token>'
+}
+
+result = RestClient.get 'https://api.valassis.com/AvailabilityHelper/1.0/stage',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'access_token'
+}
+
+r = requests.get('https://api.valassis.com/AvailabilityHelper/1.0/stage', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
 
 
+This endpoint stages large list of Geographies to pull Availability within date range.
 
----------------------------------------------------
+### HTTPS Request
+
+`POST https://api.valassis.com/AvailabilityHelper/1.0/stage`
+
+### Parameters
+|Parameter|Type|Required|Description|
+|---|---|---|---|---|
+|body|[AvailabilityHelperRequest](#schemaavailabilityhelperrequest)|true|Body containing Availability Request data|
+
+<a id="schemaavailabilityhelperrequest"></a>
+### AvailabilityHelper Request Schema
+
+*Payload parameters required to stage Availability request data*
+
+```json
+{
+   "productCode":"vdp",
+   "fromDate":"2018-08-05",
+   "toDate":"2018-12-30",
+   "geographies":["91604C1","91604B1”, “91604D1”, “91607D1”, “91423B1”, “91423G1”, “91604F1”, “91607C1",    "91602B1”, “91423C1”, “91601C1”, “91423D1”, “91607B1”,
+     “90068B1”, “91605D1”, “90069C1", "91411C1”, “90046B1”, “91505B1",    "90046F1”, “90046K1”, “91405D1”, “91405G1”, “90068C1”, “90028B1”, “90048C1”, “91605F1”,
+     “91504D1”, “90036F1”, “91405C1", "91402G1”, “91406B1”, “90211”, “91406C1”, “90028D1”, “91436C1”, “90048D1”, “90212C1”, “90036C1”, “90212B1”, “90028F1”,
+     “91504B1”, “90038B1”, “90024F1", "91502”, “90067”, “90024G1”, “90036G1”, “90049F1”, “91402D1”, “90035C1”, “90049G1”, “91402F1”, “90024B1”, “90038D1”,
+     “90036B1”, “90027B1”, “90024D1”, “91504C1”, “91406G1”, “90036D1”, “90035B1”, “90004F1”, “91331B1”, “90025F1",    "90027F1”, “91201C1”, “91316C1”, “90027C1”,
+     “91352D1”, “90035D1”, “90004B1”, “90029C1”, “91402C1”, “90019J1”, “91406F1”, “91343B1”, “90020G1”, “91316D1”, “90027J1”, “90064C1”, “90025B1”, “90027D1”,
+     “91316B1”, “90049C1”, “90019G1”, “91201B1”, “91501C1”, “91352C1”, “90029B1”, “91402B1”, “90005F1”, “90004G1”, “90025C1”, “91406D1”, “90034C1”, “90019C1”,
+     “90019K1”, “91501B1”, “90034J1”, “90064B1”, “91331D1”, “90020F1”, “90027G1”, “90010”, “90025D1”, “91331G1”, “91343C1”, “90029D1”, “90049D1”, “91356B1”,
+     “91343F1”, “90004C1”, “90020C1”, “91202C1”, “90049B1”, “90016F1”, “90004D1”, “90034F1”, “90005D1”, “90025G1”, “90019F1”, “91203”, “90039D1”, “90034B1”,
+     “91335G1”, “90039B1”, “90020B1”, “91204”, “90019D1”, “90026D1”, “91202B1”, “91356C1”, “90016B1”, “90064D1”, “90005B1”, “90034G1”, “91335B1”, “90019B1”,
+     “90006D1”, “90020D1”, “90016D1”, “91040C1”, “90034D1”, “90026G1”, “91325B1”, “90404C1”, “91343D1”, “90232C1”, “90403D1”, “91331F1”, “91335D1”,
+     “91356D1”, “90018B1"
+   ],
+   "isAvailable":"1"
+}
+```
+
+### Properties
+<aside class="notice">
+Property values in <code>BOLD</code> should be used as default values
+</aside>
+
+|Parameter|Type|Required|Description|
+|---|---|---|---|
+|productCode|string|true|Valassis Product Name "(**VDP**, WRAP, ALL INS_SHARED)"|
+|FromDate|string|true|In Home Week (Sunday) Start Date **"YYYY-MM-DD"**|
+|toDate|string|true|In Home Week End Date **"YYYY-MM-DD"**|
+|**geocode**|string|false|5-Digit **ZIP** or 8-Digit Valassis **ATZ**. Multiple values separated by ","|
+|isAvailable|Numeric|false| If not used - returns Availability for all geographies. "1" - Returns only Available Geos. "0" - Returns only Unavailable Geos.|
+
+
+### Responses
+> The above command returns JSON structured like this:
+
+```json
+{
+    "payload": "6988",
+    "exception": null,
+    "returnCode": 200
+}
+```
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|AvailabilityHelper call was successful|[AvailabilityHelper Response](#schemaavailabilityhelperresponse)|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Bad Request - See the AvailabilityHelperResponse object for further information|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error - The JSON file could not be processed due to errors which occurred on the Valassis server side. Please notify Valassis IT Support.|None|
+
+<a id="schemaavailabilityhelperresponse"></a>
+### AvailabilityHelper Response Schema
+
+|Name|Type|Description|
+|---|---|---|
+|payload|Number|**stageId** value - used in Availability API query parm.|
+|exception|object|**"Null"** or reason of exception|
+|returnCode|integer(int32)|Http Status Code|
+
+
+--------------------------------------------------------------------------------
 
 # MediaPlan
 ## POST - Create Mediaplan
