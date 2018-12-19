@@ -640,7 +640,7 @@ Places a hold on the selected geographies within a defined Media Plan so that in
 Orders submitted to Valassis using the exposed Order API rely on scheduled processes to finalize the Order details within our Order Management and Fulfillment systems.  As result the Order Service API is asynchronous.  While the Order Service API returns a response the Order is not actually completely submitted until these scheduled processes execute.  To avoid possible loss of inventory within the desired products availability the InventoryReserve Service API was created.   This service marks the requested inventory as unavailable which prevents other Valasssis order systems from booking the same inventory.   InventoryReserve service should be used once the client has selected their delivery date and Geographies.   
 
 <aside class="warning">
-Reserving Inventory places a "hard" hold on the Availability for the given geographies and dates. There is currently not an API method/endpoint to release the reserved inventory in the event a followup Order is not made.  Contact Valassis Operations Support to clear the reservation.   
+Reserving Inventory places a "hard" hold on the Availability for the given geographies and dates. There is currently no API method/endpoint to release the reserved inventory in the event a followup Order is not made.  Contact Valassis Operations Support to clear the reservation.   
 </aside>
 
 ### HTTPS Request
