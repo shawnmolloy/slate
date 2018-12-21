@@ -24,20 +24,23 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 
 # Authentication
+## POST Token
 
 > To authorize, use this code:
 
 ```ruby
-require 'net/http'
-require 'uri'
+require "uri"
+require "net/http"
 
-uri = URI.parse("https://api.valassis.com/token/")
-request = Net::HTTP::Get.new(uri)
-request["Authorization"] = "Basic Base64(consumer-key:consumer-secret)"
+url = URI("https://api.valassis.com/token")
 
-req_options = {
-  use_ssl: uri.scheme == "https",
-}
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Authorization"] = "Basic wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue"
+request["Content-Type"] = "application/x-www-form-urlencoded"
+request.body = "grant_type=client_credentials"
 
 response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
   http.request(request)
@@ -49,22 +52,23 @@ end
 
 ```python
 import requests
-
+url = 'https://api.valassis.com/token'
+payload = 'grant_type=client_credentials'
 headers = {
-    'Authorization': 'Basic Base64(consumer-key:consumer-secret)',
+  'Authorization': 'Basic wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
-
-response = requests.get('https://api.valassis.com/token/', headers=headers)
-
+response = requests.request('POST', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
+print(response.text)
 ```
 
 ```shell
 curl -X GET https://api.valassis.com/token/ \
-  -H "Authorization: Basic Base64(consumer-key:consumer-secret)" \
+  -H "Authorization: Basic <Base64-encoded-client_key:client_secret>" \
   -D "grant_type=client_credentials"  
 ```
 
-> Make sure to replace `(consumer-key:consumer-secret)` with your specific key pair based on Production or Sandbox ENV.
+> Make sure to replace `(client-key:client-secret)` with your specific key pair based on Production or Sandbox ENV.
 
 > The above command returns JSON structured like this:
 
@@ -78,19 +82,19 @@ curl -X GET https://api.valassis.com/token/ \
 ```
 
 
-Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access Tokens are generated from Token Request calls made using a Customer Key and Customer Secret. You maybe eligible to register for a Customer Key and Customer Secret at our [developer portal](http://developer.valassis.com).
+Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access Tokens are generated from Token Request calls made using a Customer Key and Customer Secret. You maybe eligible to register for a Client Key and Clinet Secret at our [developer portal](http://developer.valassis.com).
 
 Alternatively the Customer Key and Customer Secret with be provided to you by a Valassis Implementation Representative.
 
-You'll be given two sets of CustomerKey:CustomerSecret credentials.  One for Production and a second for QA/Sandbox testing.  Credientials must be Base64 encoded before placing into Authorization Header.
+You'll be given two sets of ClientKey:ClientSecret credentials.  One for Production and a second for QA/Sandbox testing.  Credentials must be Base64 encoded before placing into Authorization Header.
 
-Example of Base64 encoded CustomerKey:CustomerSecret **wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue**
+Example of Base64 encoded client-key:client-secret **wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue**
 
   * Authorization Notes:
-    * The credentials must be passed in the “Authorization” header in a getAccessToken() request before making the API requests.
+    * The credentials must be passed in the “Authorization” header in a Token request before making the API requests.
     * Upon receiving the correct credentials, authorization server issues an access token called “bearer token” as below.
     * All subsequent API requests must use this <bearertoken> in the http “authorization header”
-    * The access token has a definite time to live (TTL) or expires_in ( by default its 3600 seconds), and until it meets the expires_in ,the client will get the same token for the getAccessToken() requests.
+    * The access token has a definite time to live (TTL) or expires_in ( by default its 3600 seconds), and until it meets the expires_in ,the client will get the same token for the Token requests.
     * The client must have logic in the code to track and handle the expires_in , and must make a new request to get the next token
 
 `Authorization: Bearer: <access_token>`
