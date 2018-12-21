@@ -50,6 +50,7 @@ end
 # response.body
 ```
 
+
 ```python
 import requests
 url = 'https://api.valassis.com/token'
@@ -82,7 +83,7 @@ curl -X GET https://api.valassis.com/token/ \
 ```
 
 
-Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access Tokens are generated from Token Request calls made using a Customer Key and Customer Secret. You maybe eligible to register for a Client Key and Clinet Secret at our [developer portal](http://developer.valassis.com).
+Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access Tokens are generated from Token Request calls made using a Customer Key and Customer Secret. You maybe eligible to register for a Client Key and Client Secret at our [developer portal](http://developer.valassis.com).
 
 Alternatively the Customer Key and Customer Secret with be provided to you by a Valassis Implementation Representative.
 
@@ -93,7 +94,7 @@ Example of Base64 encoded client-key:client-secret **wU62DjlyDBnq87GlBwplfqvmAbA
   * Authorization Notes:
     * The credentials must be passed in the “Authorization” header in a Token request before making the API requests.
     * Upon receiving the correct credentials, authorization server issues an access token called “bearer token” as below.
-    * All subsequent API requests must use this <bearertoken> in the http “authorization header”
+    * All subsequent API requests must use this <access_token> in the http “authorization header”
     * The access token has a definite time to live (TTL) or expires_in ( by default its 3600 seconds), and until it meets the expires_in ,the client will get the same token for the Token requests.
     * The client must have logic in the code to track and handle the expires_in , and must make a new request to get the next token
 
