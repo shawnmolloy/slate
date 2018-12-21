@@ -225,6 +225,11 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#post-token" class="toc-h2 toc-link" data-title="POST Token">POST Token</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#availability" class="toc-h1 toc-link" data-title="Availability">Availability</a>
@@ -277,20 +282,22 @@
 <p>Welcome to the Valassis Q2C API! You can use our API to access various API endpoints, which allow you to perform key Business functions and exchange information on Valassis Products and Services.</p>
 
 <p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-<h1 id='authentication'>Authentication</h1>
+<h1 id='authentication'>Authentication</h1><h2 id='post-token'>POST Token</h2>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
-<span class="nb">require</span> <span class="s1">'uri'</span>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"uri"</span>
+<span class="nb">require</span> <span class="s2">"net/http"</span>
 
-<span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s2">"https://api.valassis.com/token/"</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Get</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
-<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Basic Base64(consumer-key:consumer-secret)"</span>
+<span class="n">url</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s2">"https://api.valassis.com/token"</span><span class="p">)</span>
 
-<span class="n">req_options</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="ss">use_ssl: </span><span class="n">uri</span><span class="p">.</span><span class="nf">scheme</span> <span class="o">==</span> <span class="s2">"https"</span><span class="p">,</span>
-<span class="p">}</span>
+<span class="n">https</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="n">url</span><span class="p">.</span><span class="nf">port</span><span class="p">)</span>
+<span class="n">https</span><span class="p">.</span><span class="nf">use_ssl</span> <span class="o">=</span> <span class="kp">true</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">::</span><span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Basic wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue"</span>
+<span class="n">request</span><span class="p">[</span><span class="s2">"Content-Type"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"application/x-www-form-urlencoded"</span>
+<span class="n">request</span><span class="p">.</span><span class="nf">body</span> <span class="o">=</span> <span class="s2">"grant_type=client_credentials"</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="p">.</span><span class="nf">start</span><span class="p">(</span><span class="n">uri</span><span class="p">.</span><span class="nf">hostname</span><span class="p">,</span> <span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="n">req_options</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
   <span class="n">http</span><span class="p">.</span><span class="nf">request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
@@ -299,19 +306,20 @@
 <span class="c1"># response.code</span>
 <span class="c1"># response.body</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
-
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://api.valassis.com/token'</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="s">'grant_type=client_credentials'</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Basic Base64(consumer-key:consumer-secret)'</span><span class="p">,</span>
+  <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'Basic wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue'</span><span class="p">,</span>
+  <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/x-www-form-urlencoded'</span>
 <span class="p">}</span>
-
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://api.valassis.com/token/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
-
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s">'POST'</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">undefined</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl -X GET https://api.valassis.com/token/ <span class="se">\</span>
-  -H <span class="s2">"Authorization: Basic Base64(consumer-key:consumer-secret)"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Basic &lt;Base64-encoded-client_key:client_secret&gt;"</span> <span class="se">\</span>
   -D <span class="s2">"grant_type=client_credentials"</span>  
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>(consumer-key:consumer-secret)</code> with your specific key pair based on Production or Sandbox ENV.</p>
+<p>Make sure to replace <code>(client-key:client-secret)</code> with your specific key pair based on Production or Sandbox ENV.</p>
 
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
@@ -322,22 +330,22 @@
     </span><span class="s2">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access Tokens are generated from Token Request calls made using a Customer Key and Customer Secret. You maybe eligible to register for a Customer Key and Customer Secret at our <a href="http://developer.valassis.com">developer portal</a>.</p>
+<p>Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access Tokens are generated from Token Request calls made using a Customer Key and Customer Secret. You maybe eligible to register for a Client Key and Clinet Secret at our <a href="http://developer.valassis.com">developer portal</a>.</p>
 
 <p>Alternatively the Customer Key and Customer Secret with be provided to you by a Valassis Implementation Representative.</p>
 
-<p>You&#39;ll be given two sets of CustomerKey:CustomerSecret credentials.  One for Production and a second for QA/Sandbox testing.  Credientials must be Base64 encoded before placing into Authorization Header.</p>
+<p>You&#39;ll be given two sets of ClientKey:ClientSecret credentials.  One for Production and a second for QA/Sandbox testing.  Credentials must be Base64 encoded before placing into Authorization Header.</p>
 
-<p>Example of Base64 encoded CustomerKey:CustomerSecret <strong>wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue</strong></p>
+<p>Example of Base64 encoded client-key:client-secret <strong>wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue</strong></p>
 
 <ul>
 <li>Authorization Notes:
 
 <ul>
-<li>The credentials must be passed in the “Authorization” header in a getAccessToken() request before making the API requests.</li>
+<li>The credentials must be passed in the “Authorization” header in a Token request before making the API requests.</li>
 <li>Upon receiving the correct credentials, authorization server issues an access token called “bearer token” as below.</li>
 <li>All subsequent API requests must use this <bearertoken> in the http “authorization header”</li>
-<li>The access token has a definite time to live (TTL) or expires_in ( by default its 3600 seconds), and until it meets the expires_in ,the client will get the same token for the getAccessToken() requests.</li>
+<li>The access token has a definite time to live (TTL) or expires_in ( by default its 3600 seconds), and until it meets the expires_in ,the client will get the same token for the Token requests.</li>
 <li>The client must have logic in the code to track and handle the expires_in , and must make a new request to get the next token</li>
 </ul></li>
 </ul>
