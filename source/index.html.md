@@ -338,7 +338,7 @@ This endpoint stages large list of Geographies to pull Availability within date 
 
 ```json
 {
-   "productCode":"vdp",
+   "productCode":"VDP",
    "fromDate":"2018-08-05",
    "toDate":"2018-12-30",
    "geographies":["91604C1","91604B1”, “91604D1”, “91607D1”, “91423B1”, “91423G1”, “91604F1”, “91607C1",    "91602B1”, “91423C1”, “91601C1”, “91423D1”, “91607B1”,
