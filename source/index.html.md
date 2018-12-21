@@ -38,7 +38,7 @@ https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
 request = Net::HTTP::Post.new(url)
-request["Authorization"] = "Basic wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue"
+request["Authorization"] = "Basic <Base64-encoded-client_key:client_secret>"
 request["Content-Type"] = "application/x-www-form-urlencoded"
 request.body = "grant_type=client_credentials"
 
@@ -55,7 +55,7 @@ import requests
 url = 'https://api.valassis.com/token'
 payload = 'grant_type=client_credentials'
 headers = {
-  'Authorization': 'Basic wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue',
+  'Authorization': 'Basic <Base64-encoded-client_key:client_secret>',
   'Content-Type': 'application/x-www-form-urlencoded'
 }
 response = requests.request('POST', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
