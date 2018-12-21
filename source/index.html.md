@@ -101,7 +101,7 @@ Example of Base64 encoded client-key:client-secret **wU62DjlyDBnq87GlBwplfqvmAbA
 `Authorization: Bearer: <access_token>`
 
 <aside class="warning">
-You must replace <code>access_token</code> with token value received from the POSTß Token Call.
+You must replace <code>access_token</code> with token value received from the POST Token Call.
 </aside>
 
 # Availability
