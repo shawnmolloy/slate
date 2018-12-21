@@ -82,7 +82,9 @@ Valassis requires the use of OAuth2.0 Access Tokens to access the API. Access To
 
 Alternatively the Customer Key and Customer Secret with be provided to you by a Valassis Implementation Representative.
 
-You'll be given two sets of CustomerKey:CustomerSerect credentials.  One for Production and a second for QA/Sandbox testing.
+You'll be given two sets of CustomerKey:CustomerSecret credentials.  One for Production and a second for QA/Sandbox testing.  Credientials must be Base64 encoded before placing into Authorization Header.
+
+Example of Base64 encoded CustomerKey:CustomerSecret **wU62DjlyDBnq87GlBwplfqvmAbAa:ksdSdoefDDP7wpaElfqvmjDue**
 
   * Authorization Notes:
     * The credentials must be passed in the “Authorization” header in a getAccessToken() request before making the API requests.
