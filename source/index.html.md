@@ -843,7 +843,7 @@ One Order request can be used for multiple Mediaplans.
           "salesRepInitials": "AAA",
           "salesRepEmployeeId": 99999,
           "contractNumber": "17PLATINUM.3",
-          "orderSource": "3CP",
+          "orderSource": "CAR",
           "distributionMethod": "Shared",
           "printMethod": "ADVO Printed",
           "draftType": "Client Supplied",
@@ -853,18 +853,20 @@ One Order request can be used for multiple Mediaplans.
           "mediaPlanGroupList": ["21822","21828"],
           "copyDisposition": "Kill",
           "orderSourceRef": "1234re32",
-          "clientNameAppearingOnAd": "ADsRSqbQa12",
-          "clientInvoicePromotion": "CIPQWxyQa501",
-          "clientPromotion": "CP1",
+          "clientNameAppearingOnAd": "Client Business Name",
+          "clientInvoicePromotion": "DV4208940",
+          "clientPromotion": "Client Business Name",
           "advertisementDate": "12-15-2018",
-          "uniqueAdVersionCode": "DH34126838",
-          "printAddressType": "Store Copy",
-          "businessName": null,
-          "contactName": null,
-          "quantity": null,
-          "rate": null,
-          "streetAddress": null,
-          "zipCode": null,
+          "uniqueAdVersionCode": "DV4208940",
+          "storeCopys": [{
+            "printAddressType": "Store Copy",
+            "businessName": "Client Business Name",
+            "contactName": "Client Contact Name",
+            "streetAddress": "Business Address",
+            "zipCode": "Business Zip",
+            "quantity": 9999,
+            "rate": 9999
+              }],
           "profileName": null,
           "opportunityNumber": "999999",
           "preferredPosition": null,
@@ -874,7 +876,7 @@ One Order request can be used for multiple Mediaplans.
           "graphicsHubOverride": null,
           "contractAgreement": "TBD17PLATINUM.3",
           "clientPO": null,
-          "clientName": "VPW Pizza Legal Name"
+          "clientName": "Client Business Name"
         }
       ],
       "productFamilyType": "SHAREDMAIL"
@@ -926,13 +928,7 @@ Property values in <code>BOLD</code> should be used as default values
 |clientPromotion|string|true|??? 30 Chars Max.|
 |advertisementDate|string|true|Sunday date of the IN-Home week of the first delivery. (MM-DD-YYYY)|
 |uniqueAdVersionCode|string|true|a unique value to Valassis.  Different value for each IHW|
-|printAddressType|string|false|Indicates if a store copy is to be sent to client.|
-|businessName|string|false|** Required if printAddressType is not "null" - Name of Business Client to receive Store Copy. 30 Chars Max|
-|contactName|string|false|** Required if printAddressType is not "null" - Name of Client contact|
-|quantity|string|false|** Required if printAddressType is not "null" - Number of store copies to be sent|
-|rate|string|false|** Required if printAddressType is not "null" - CPM Rate to use|
-|streetAddress|string|false|** Required if printAddressType is not "null" - Address of where Story Copy is to be sent.|
-|zipCode|string|false|** Required if printAddressType is not "null" - Zip of where Story Copy is to be sent|
+|storeCopys|[[StoreCopys](#schemastoreCopys)]|false|Array of Store Copy Information|
 |profileName|string|false|none|
 |opportunityNumber|string|false|none|
 |preferredPosition|string|false|Used only for Wrap Product|
@@ -943,6 +939,22 @@ Property values in <code>BOLD</code> should be used as default values
 |contractAgreement|string|false|none|
 |clientPO|string|false|20 Chars Max|
 |clientName|string|false|none|
+
+<a id="schemastoreCopys"></a>
+###storeCopys
+
+|Name|Type|Required|Description|
+|---|---|---|---|---|
+|printAddressType|string|false|Indicates if a store copy is to be sent to client.|
+|businessName|string|false|Name of Business Client to receive Store Copy. 30 Chars Max|
+|contactName|string|false|Name of Client contact|
+|streetAddress|string|false|Address of where Story Copy is to be sent.|
+|zipCode|string|false|Zip of where Story Copy is to be sent|
+|quantity|string|false|Number of store copies to be sent|
+|rate|string|false|CPM Rate to use|
+
+
+
 
 > The above command returns JSON structured like this:
 
