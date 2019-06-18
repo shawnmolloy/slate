@@ -1565,11 +1565,10 @@ One Order request can be used for multiple Mediaplans.
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"baseProductlist"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"productType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"productType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"oracleAccountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"salesRepInitials"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AAA"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"salesRepEmployeeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">99999</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"salesRepEmployeeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">99999999</span><span class="p">,</span><span class="w">
           </span><span class="s2">"contractNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17PLATINUM.3"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"orderSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CAR"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"distributionMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shared"</span><span class="p">,</span><span class="w">
@@ -1605,8 +1604,7 @@ One Order request can be used for multiple Mediaplans.
           </span><span class="s2">"contractAgreement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TBD17PLATINUM.3"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"clientPO"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
           </span><span class="s2">"clientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Business Name"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
+        </span><span class="p">},</span><span class="w">
       </span><span class="s2">"productFamilyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SHAREDMAIL"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
@@ -1646,7 +1644,7 @@ Property values in <code>BOLD</code> should be used as default values
 <td>productType</td>
 <td>[<a href="#schemaproducttype">productType</a>]</td>
 <td>true</td>
-<td>Array of Order parameters</td>
+<td>Object containing Order parameters</td>
 </tr>
 <tr>
 <td>productFamilyType</td>
@@ -1682,7 +1680,7 @@ Property values in <code>BOLD</code> should be used as default values
 <td>salesRepEmployeeId</td>
 <td>number(double)</td>
 <td>true</td>
-<td>Valid SAP Employee ID of salesRep.</td>
+<td>Valid SAP Employee ID of salesRep (8-Digit).</td>
 </tr>
 <tr>
 <td>contractNumber</td>
