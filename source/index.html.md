@@ -837,11 +837,10 @@ One Order request can be used for multiple Mediaplans.
 {
   "baseProductlist": [
     {
-      "productType": [
-        {
+      "productType": {
           "oracleAccountNumber": "9999999",
           "salesRepInitials": "AAA",
-          "salesRepEmployeeId": 99999,
+          "salesRepEmployeeId": 99999999,
           "contractNumber": "17PLATINUM.3",
           "orderSource": "CAR",
           "distributionMethod": "Shared",
@@ -877,8 +876,7 @@ One Order request can be used for multiple Mediaplans.
           "contractAgreement": "TBD17PLATINUM.3",
           "clientPO": null,
           "clientName": "Client Business Name"
-        }
-      ],
+        },
       "productFamilyType": "SHAREDMAIL"
     }
   ]
@@ -900,7 +898,7 @@ Property values in <code>BOLD</code> should be used as default values
 
 |Name|Type|Required|Description|
 |---|---|---|---|---|
-|productType|[[productType](#schemaproducttype)]|true|Array of Order parameters|
+|productType|[[productType](#schemaproducttype)]|true|Object containing Order parameters|
 |productFamilyType|string|true|**"SHAREDMAIL"**|
 
 
@@ -911,7 +909,7 @@ Property values in <code>BOLD</code> should be used as default values
 |---|---|---|---|---|
 |oracleAccountNumber|string|true|Oracle billing Account number|
 |salesRepInitials|string|true|Unique sales person's initials or virtual sales rep.|
-|salesRepEmployeeId|number(double)|true|Valid SAP Employee ID of salesRep.|
+|salesRepEmployeeId|number(double)|true|Valid SAP Employee ID of salesRep (8-Digit).|
 |contractNumber|string|true|Oracle Contract Number|
 |orderSource|string|false|Can be used to identify source system of Order Request|
 |distributionMethod|string|true|**"Shared"** - Valassis Product Distribution Method.  Indicates how product will be delivered.|
