@@ -855,7 +855,7 @@ One Order request can be used for multiple Mediaplans.
           "clientNameAppearingOnAd": "Client Business Name",
           "clientInvoicePromotion": "DV4208940",
           "clientPromotion": "Client Business Name",
-          "advertisementDate": "12-15-2018",
+          "advertisementDate": "15-Dec-2018",
           "uniqueAdVersionCode": "DV4208940",
           "storeCopys": [{
             "printAddressType": "Store Copy",
@@ -924,7 +924,7 @@ Property values in <code>BOLD</code> should be used as default values
 |clientNameAppearingOnAd|string|false|Name of the client ordering the Valassis product. 25 Chars Max.|
 |clientInvoicePromotion|string|true|Same as uniqueAdVersionCode. 30 Chars Max.|
 |clientPromotion|string|true|??? 30 Chars Max.|
-|advertisementDate|string|true|Sunday date of the IN-Home week of the first delivery. (MM-DD-YYYY)|
+|advertisementDate|string|true|Sunday date of the IN-Home week of the first delivery. (DD-MMM-YYYY)|
 |uniqueAdVersionCode|string|true|a unique value to Valassis.  Different value for each IHW|
 |storeCopys|[[StoreCopys](#schemastoreCopys)]|false|Array of Store Copy Information|
 |profileName|string|false|none|
